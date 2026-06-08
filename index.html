@@ -193,7 +193,8 @@ select.inp{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.
 
 /* ═══ ADMIN MGMT ═════════════════════════════════════════ */
 .adlist{display:grid;gap:10px;margin-bottom:16px}
-.adcard{background:var(--cream);border:1px solid var(--bd);border-radius:var(--r);padding:13px 15px;display:flex;align-items:center;justify-content:space-between;gap:10px}
+.adcard{background:var(--cream);border:1px solid var(--bd);border-radius:var(--r);padding:13px 15px;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+@media(max-width:460px){.adcard{flex-direction:column;align-items:flex-start}.adactions{width:100%;display:flex;gap:6px;justify-content:flex-start}}
 .adleft{display:flex;align-items:center;gap:11px}
 .adav{width:40px;height:40px;border-radius:50%;background:var(--sl);border:1.5px solid var(--bds);display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:600;color:var(--sd);flex-shrink:0}
 .adname{font-size:14px;font-weight:600}
@@ -496,7 +497,15 @@ function saveAdmins(list){
 
 /* ── SESSION ──────────────────────────────────────────── */
 let me=JSON.parse(sessionStorage.getItem('bb_me')||'null');
-function setMe(a){me=a;sessionStorage.setItem('bb_me',JSON.stringify(a));renderAbar();}
+function setMe(a){
+  me=a;
+  sessionStorage.setItem('bb_me',JSON.stringify(a));
+  renderAbar();
+  // Request notification permission for admins
+  if('Notification' in window && Notification.permission==='default'){
+    Notification.requestPermission();
+  }
+}
 function logout(){me=null;sessionStorage.removeItem('bb_me');renderAbar();go('order',document.getElementById('t-order'));}
 function renderAbar(){
   const bar=document.getElementById('abar');
@@ -858,6 +867,16 @@ function placeOrder(){
   orders.push(order);
   saveCust(name,mobile,soc,tower,flat);
   saveAll();
+
+  // Send browser notification to admins
+  if('Notification' in window && Notification.permission==='granted'){
+    new Notification('🍛 New Order from '+name, {
+      body:'Order #'+order.id+' — '+order.items.map(i=>i.name+' ×'+i.qty).join(', ')+' — ₹'+order.total,
+      icon:'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="50" fill="%23E8821A"/><text x="50" y="65" font-size="60" text-anchor="middle" fill="white">🍛</text></svg>',
+      tag:'bb-order-'+order.id,
+      requireInteraction:false
+    });
+  }
 
   // reset form
   ['f-name','f-mobile','f-soc','f-tower','f-flat'].forEach(id=>document.getElementById(id).value='');
