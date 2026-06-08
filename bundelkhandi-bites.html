@@ -1,0 +1,1010 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
+<meta name="theme-color" content="#E8821A"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-title" content="BB Bites"/>
+<title>Bundelkhandi Bites — Order Online</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,400&display=swap" rel="stylesheet"/>
+<style>
+/* ═══ TOKENS ═══════════════════════════════════════════ */
+:root{
+  --s:#E8821A;--sl:#FDF0E0;--sd:#B86210;--sxl:#FEF9F3;
+  --g:#2D6A4F;--gl:#E8F5EE;--gd:#1B4332;
+  --cream:#FBF7F0;--paper:#FFFCF7;
+  --ink:#1A1208;--inkm:#4A3F30;--inks:#8A7B68;
+  --bd:#E8DFD0;--bds:#C8B99A;
+  --red:#C0392B;--redl:#FDEDEC;
+  --gold:#C9A84C;--goldl:#FBF5E6;
+  --r:12px;--rl:18px;
+  --shadow:0 2px 12px rgba(26,18,8,.08);
+  --shadow-lg:0 8px 32px rgba(26,18,8,.14);
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--ink);min-height:100vh;font-size:15px}
+h1,h2,h3{font-family:'Playfair Display',serif}
+img{max-width:100%}
+
+/* ═══ LAYOUT ════════════════════════════════════════════ */
+.wrap{max-width:680px;margin:0 auto;padding-bottom:100px}
+
+/* ═══ HEADER ════════════════════════════════════════════ */
+header{
+  background:var(--paper);border-bottom:1px solid var(--bd);
+  padding:14px 20px;position:sticky;top:0;z-index:100;
+  display:flex;align-items:center;justify-content:space-between;gap:12px;
+  box-shadow:var(--shadow)
+}
+.logo{display:flex;align-items:center;gap:11px;text-decoration:none;flex-shrink:0}
+.logo-icon{width:44px;height:44px;background:var(--s);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
+.logo-text h1{font-size:17px;color:var(--ink);line-height:1.2}
+.logo-text p{font-size:11px;color:var(--inks);margin-top:1px}
+.tabs{display:flex;gap:5px;flex-shrink:0}
+.tab{background:none;border:1.5px solid var(--bd);border-radius:10px;padding:7px 14px;font-size:13px;font-family:'DM Sans',sans-serif;cursor:pointer;color:var(--inkm);transition:all .15s;white-space:nowrap;font-weight:500}
+.tab.on{background:var(--s);border-color:var(--s);color:#fff;box-shadow:0 2px 8px rgba(232,130,26,.3)}
+.tab:hover:not(.on){background:var(--sl);border-color:var(--s);color:var(--sd)}
+
+/* ═══ ADMIN BAR ══════════════════════════════════════════ */
+.abar{display:none;background:var(--ink);padding:10px 20px;align-items:center;justify-content:space-between;gap:10px}
+.abar.on{display:flex}
+.abar-info{color:rgba(255,255,255,.8);font-size:13px;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.abar-info strong{color:#fff}
+.rpill{display:inline-flex;align-items:center;font-size:10px;font-weight:600;padding:2px 8px;border-radius:20px;letter-spacing:.02em}
+.rpill.sup{background:var(--s);color:#fff}
+.rpill.adm{background:var(--g);color:#fff}
+.lout{background:none;border:1px solid rgba(255,255,255,.25);color:rgba(255,255,255,.75);border-radius:8px;padding:5px 13px;font-size:12px;cursor:pointer;font-family:'DM Sans',sans-serif;transition:background .15s;white-space:nowrap}
+.lout:hover{background:rgba(255,255,255,.1)}
+
+/* ═══ VIEWS ═════════════════════════════════════════════ */
+.view{display:none;padding:20px}
+.view.on{display:block}
+@media(min-width:640px){.view{padding:28px 24px}}
+
+/* ═══ CARDS ═════════════════════════════════════════════ */
+.card{background:var(--paper);border:1px solid var(--bd);border-radius:var(--rl);padding:20px;margin-bottom:16px;box-shadow:var(--shadow)}
+.ch{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--inks);margin-bottom:14px;display:flex;justify-content:space-between;align-items:center}
+
+/* ═══ FORMS ══════════════════════════════════════════════ */
+.lbl{font-size:13px;color:var(--inkm);display:block;margin-bottom:5px;margin-top:13px;font-weight:500}
+.lbl:first-of-type{margin-top:0}
+.inp{
+  width:100%;height:46px;padding:0 14px;font-size:15px;font-family:'DM Sans',sans-serif;
+  background:var(--cream);border:1.5px solid var(--bds);border-radius:var(--r);
+  color:var(--ink);outline:none;transition:border .15s,box-shadow .15s;
+  -webkit-appearance:none;appearance:none
+}
+.inp:focus{border-color:var(--s);box-shadow:0 0 0 3px rgba(232,130,26,.12)}
+select.inp{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238A7B68' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;padding-right:36px;cursor:pointer}
+.r2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:13px}
+@media(max-width:400px){.r2{grid-template-columns:1fr}}
+
+/* ═══ BUTTONS ════════════════════════════════════════════ */
+.btnP{background:var(--s);color:#fff;border:none;border-radius:var(--r);padding:0 18px;height:44px;font-size:14px;font-family:'DM Sans',sans-serif;font-weight:500;cursor:pointer;transition:background .15s;white-space:nowrap}
+.btnP:hover{background:var(--sd)}
+.btnG{background:none;border:1.5px solid var(--bds);border-radius:var(--r);padding:0 14px;height:40px;font-size:13px;font-family:'DM Sans',sans-serif;cursor:pointer;color:var(--inkm);transition:all .15s}
+.btnG:hover{background:var(--sl);border-color:var(--s);color:var(--sd)}
+.btnGr{background:var(--g);color:#fff;border:none;border-radius:var(--r);padding:0 16px;height:42px;font-size:14px;font-family:'DM Sans',sans-serif;cursor:pointer;white-space:nowrap}
+.btnGr:hover{background:var(--gd)}
+.btnX{background:none;border:none;color:var(--red);cursor:pointer;padding:4px 6px;font-size:20px;line-height:1;display:flex;align-items:center;justify-content:center}
+.placeBtn{
+  width:100%;height:56px;font-size:18px;font-family:'Playfair Display',serif;
+  background:var(--s);color:#fff;border:none;border-radius:var(--rl);cursor:pointer;
+  margin-top:8px;transition:all .15s;box-shadow:0 4px 16px rgba(232,130,26,.35);
+  letter-spacing:.02em
+}
+.placeBtn:hover{background:var(--sd);box-shadow:0 4px 20px rgba(232,130,26,.45)}
+.placeBtn:active{transform:scale(.98)}
+
+/* ═══ BANNERS ════════════════════════════════════════════ */
+.ok{display:none;background:var(--gl);border:1.5px solid var(--g);border-radius:var(--r);padding:14px 18px;font-size:14px;color:var(--gd);margin-bottom:16px;font-weight:500}
+.errbanner{display:none;background:var(--redl);border:1.5px solid var(--red);border-radius:var(--r);padding:14px 18px;font-size:14px;color:var(--red);margin-top:10px}
+.afbox{display:none;background:var(--sl);border:1.5px solid var(--s);border-radius:var(--r);padding:14px 16px;margin-bottom:14px;font-size:14px}
+.afbox strong{color:var(--sd)}
+.af-btns{display:flex;gap:8px;margin-top:10px}
+.afyes{background:var(--s);color:#fff;border:none;border-radius:8px;padding:7px 16px;font-size:13px;cursor:pointer;font-family:'DM Sans',sans-serif;font-weight:500}
+.afno{background:none;border:1.5px solid var(--bds);border-radius:8px;padding:7px 13px;font-size:13px;cursor:pointer;font-family:'DM Sans',sans-serif;color:var(--inkm)}
+
+/* ═══ SLOT GRID ══════════════════════════════════════════ */
+.sgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+@media(max-width:360px){.sgrid{grid-template-columns:1fr 1fr}}
+.sopt{
+  border:2px solid var(--bds);border-radius:var(--rl);padding:14px 8px;
+  cursor:pointer;background:var(--cream);text-align:center;
+  transition:all .15s;user-select:none;-webkit-user-select:none
+}
+.sopt:active{transform:scale(.96)}
+.sopt.picked{border-color:var(--s);background:var(--sl);box-shadow:0 2px 10px rgba(232,130,26,.18)}
+.sopt .se{font-size:24px;display:block;margin-bottom:6px}
+.sopt .sn{font-size:14px;font-weight:600;color:var(--ink)}
+.sopt .st{font-size:11px;color:var(--inks);margin-top:3px}
+
+/* ═══ ORDER ROWS ══════════════════════════════════════════ */
+.orow{display:grid;grid-template-columns:1fr 72px 40px;gap:8px;align-items:center;margin-bottom:10px}
+.orow .inp{font-size:14px}
+.addrow{
+  width:100%;background:none;border:2px dashed var(--bds);border-radius:var(--r);
+  padding:11px;font-size:14px;color:var(--inks);cursor:pointer;
+  font-family:'DM Sans',sans-serif;margin-top:4px;transition:all .15s
+}
+.addrow:hover{border-color:var(--s);color:var(--s)}
+.addrow:active{background:var(--sl)}
+.totalrow{display:flex;justify-content:space-between;align-items:center;margin-top:14px;padding-top:14px;border-top:1.5px dashed var(--bd)}
+.totallbl{font-size:14px;color:var(--inks)}
+.totalamt{font-size:24px;font-family:'Playfair Display',serif;color:var(--s)}
+
+/* ═══ AUTOCOMPLETE ═══════════════════════════════════════ */
+.acwrap{position:relative}
+.acdrop{
+  position:absolute;top:calc(100% + 4px);left:0;right:0;background:var(--paper);
+  border:1.5px solid var(--bds);border-radius:var(--r);
+  box-shadow:var(--shadow-lg);z-index:300;display:none;max-height:200px;overflow-y:auto
+}
+.acitem{padding:12px 16px;cursor:pointer;font-size:14px;border-bottom:1px solid var(--bd)}
+.acitem:last-child{border-bottom:none}
+.acitem:hover,.acitem:active{background:var(--sl)}
+.acitem strong{color:var(--sd)}
+.acmeta{font-size:12px;color:var(--inks);margin-top:2px}
+
+/* ═══ MENU TABLE ══════════════════════════════════════════ */
+.mtbl{width:100%;border-collapse:collapse;font-size:14px}
+.mtbl th{text-align:left;padding:8px 10px;border-bottom:1px solid var(--bd);font-size:12px;color:var(--inks);font-weight:600;text-transform:uppercase;letter-spacing:.04em}
+.mtbl td{padding:8px 10px;border-bottom:1px solid var(--bd);vertical-align:middle}
+.mtbl tr:last-child td{border-bottom:none}
+.ei{height:36px;font-size:13px;background:var(--cream);border:1.5px solid var(--bd);border-radius:8px;padding:0 10px;font-family:'DM Sans',sans-serif;outline:none;width:100%}
+.ei:focus{border-color:var(--s)}
+.pi{width:80px}
+
+/* ═══ SLOTS ADMIN ════════════════════════════════════════ */
+.sarow{display:flex;align-items:center;gap:10px;padding:12px 0;border-bottom:1px solid var(--bd);flex-wrap:wrap}
+.sarow:last-child{border-bottom:none}
+.saname{font-size:14px;font-weight:600;min-width:88px}
+.satimes{display:flex;gap:8px;flex:1;align-items:center;flex-wrap:wrap}
+.ti{height:38px;font-size:13px;background:var(--cream);border:1.5px solid var(--bds);border-radius:8px;padding:0 8px;font-family:'DM Sans',sans-serif;outline:none;width:110px}
+.ti:focus{border-color:var(--s)}
+.satimes span{font-size:12px;color:var(--inks)}
+
+/* ═══ TOGGLE ═════════════════════════════════════════════ */
+.tgl{position:relative;width:44px;height:26px;flex-shrink:0}
+.tgl input{opacity:0;width:0;height:0}
+.tslide{position:absolute;inset:0;background:var(--bds);border-radius:26px;cursor:pointer;transition:.2s}
+.tslide:before{content:"";position:absolute;width:20px;height:20px;left:3px;top:3px;background:#fff;border-radius:50%;transition:.2s;box-shadow:0 1px 4px rgba(0,0,0,.2)}
+.tgl input:checked+.tslide{background:var(--g)}
+.tgl input:checked+.tslide:before{transform:translateX(18px)}
+
+/* ═══ ORDERS ═════════════════════════════════════════════ */
+.ostats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px}
+.ostat{background:var(--paper);border:1px solid var(--bd);border-radius:var(--r);padding:14px 10px;text-align:center;box-shadow:var(--shadow)}
+.ostat .n{font-size:28px;font-family:'Playfair Display',serif;color:var(--s)}
+.ostat .l{font-size:11px;color:var(--inks);margin-top:3px;font-weight:500}
+.otbl-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.otbl{width:100%;border-collapse:collapse;font-size:13px;min-width:520px}
+.otbl th{text-align:left;padding:10px 10px;border-bottom:2px solid var(--bd);font-size:11px;color:var(--inks);font-weight:600;background:var(--cream);text-transform:uppercase;letter-spacing:.04em;white-space:nowrap}
+.otbl td{padding:10px 10px;border-bottom:1px solid var(--bd);vertical-align:top}
+.otbl tr:hover td{background:var(--sl)}
+.bdg{display:inline-block;padding:3px 9px;border-radius:20px;font-size:11px;font-weight:600}
+.bl{background:#FEF3C7;color:#92400E}
+.bs{background:#D1FAE5;color:#065F46}
+.bd{background:#EDE9FE;color:#4C1D95}
+.ebar{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap}
+.empty{text-align:center;padding:40px;color:var(--inks);font-size:15px}
+
+/* ═══ ADMIN MGMT ═════════════════════════════════════════ */
+.adlist{display:grid;gap:10px;margin-bottom:16px}
+.adcard{background:var(--cream);border:1px solid var(--bd);border-radius:var(--r);padding:13px 15px;display:flex;align-items:center;justify-content:space-between;gap:10px}
+.adleft{display:flex;align-items:center;gap:11px}
+.adav{width:40px;height:40px;border-radius:50%;background:var(--sl);border:1.5px solid var(--bds);display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:600;color:var(--sd);flex-shrink:0}
+.adname{font-size:14px;font-weight:600}
+.admeta{font-size:12px;color:var(--inks);margin-top:2px}
+.adactions{display:flex;gap:6px;align-items:center;flex-shrink:0}
+.pcbtn{background:none;border:1.5px solid var(--bds);border-radius:8px;padding:5px 11px;font-size:12px;cursor:pointer;font-family:'DM Sans',sans-serif;color:var(--inkm);white-space:nowrap}
+.pcbtn:hover{background:var(--sl);border-color:var(--s)}
+.pcform{display:none;background:var(--goldl);border:1.5px solid var(--gold);border-radius:var(--r);padding:14px;margin-top:8px}
+.pcform.on{display:block}
+.pcrow{display:flex;gap:8px;margin-top:10px;align-items:center;flex-wrap:wrap}
+.pcrow .pinfield{width:130px;letter-spacing:5px;text-align:center;font-size:18px;height:46px}
+.addform{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media(min-width:520px){.addform{grid-template-columns:1fr 1fr 110px 44px}}
+
+/* ═══ BLOCKED ════════════════════════════════════════════ */
+.blocked{display:none;padding:56px 20px;text-align:center}
+.blocked.on{display:block}
+.blocked .bi{font-size:52px;margin-bottom:16px}
+.blocked h2{margin-bottom:10px}
+.blocked p{color:var(--inks);font-size:14px;line-height:1.6}
+
+/* ═══ PIN MODAL ══════════════════════════════════════════ */
+.poverlay{display:none;position:fixed;inset:0;background:rgba(26,18,8,.65);z-index:600;align-items:flex-end;justify-content:center;padding:0}
+.poverlay.on{display:flex}
+@media(min-width:480px){.poverlay{align-items:center;padding:20px}}
+.pmodal{
+  background:var(--paper);border-radius:20px 20px 0 0;width:100%;max-width:420px;
+  overflow:hidden;animation:slideUp .25s ease
+}
+@media(min-width:480px){.pmodal{border-radius:20px;animation:popIn .2s ease}}
+@keyframes slideUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
+@keyframes popIn{from{transform:scale(.9);opacity:0}to{transform:scale(1);opacity:1}}
+.phead{background:var(--ink);padding:26px 22px 20px;text-align:center}
+.phead .pico{font-size:36px;margin-bottom:10px}
+.phead h2{color:#fff;font-size:20px;margin-bottom:4px}
+.phead p{color:rgba(255,255,255,.5);font-size:12px}
+.pbody{padding:22px 20px 28px}
+.asel{
+  width:100%;height:48px;font-size:15px;background:var(--cream);
+  border:1.5px solid var(--bds);border-radius:var(--r);padding:0 14px;
+  color:var(--ink);font-family:'DM Sans',sans-serif;outline:none;cursor:pointer;
+  margin-bottom:16px;-webkit-appearance:none;appearance:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238A7B68' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 14px center;padding-right:36px
+}
+.asel:focus{border-color:var(--s)}
+.pdots{display:flex;justify-content:center;gap:13px;margin:16px 0 8px}
+.pdot{width:16px;height:16px;border-radius:50%;border:2px solid var(--bds);background:transparent;transition:all .15s}
+.pdot.f{background:var(--s);border-color:var(--s)}
+.pdot.e{background:var(--red);border-color:var(--red)}
+.pdot.h{opacity:.15}
+.pdot.shk{animation:shk .35s ease}
+@keyframes shk{0%,100%{transform:translateX(0)}25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+.numpad{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:16px}
+.nb{
+  height:62px;font-size:22px;font-family:'Playfair Display',serif;font-weight:500;
+  background:var(--cream);border:1.5px solid var(--bd);border-radius:var(--rl);
+  cursor:pointer;color:var(--ink);transition:all .12s;user-select:none;-webkit-user-select:none
+}
+.nb:hover{background:var(--sl);border-color:var(--s)}
+.nb:active{transform:scale(.93);background:var(--s);color:#fff;border-color:var(--s)}
+.nb.del{font-size:18px;color:var(--inks)}
+.nb.emp{background:transparent;border:none;cursor:default}
+.nb.emp:hover,.nb.emp:active{background:transparent;border:none;transform:none}
+.nb:disabled{opacity:.35;cursor:not-allowed}
+.perr{color:var(--red);font-size:13px;text-align:center;margin-top:10px;min-height:20px;font-weight:500}
+.atts{display:flex;justify-content:center;gap:6px;margin-top:8px}
+.att{width:9px;height:9px;border-radius:50%;background:var(--bds);transition:background .2s}
+.att.u{background:var(--red)}
+.cancelbtn{background:none;border:none;color:var(--inks);font-size:13px;cursor:pointer;margin-top:14px;display:block;width:100%;font-family:'DM Sans',sans-serif;padding:6px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<!-- HEADER -->
+<header>
+  <div class="logo">
+    <div class="logo-icon">🍛</div>
+    <div class="logo-text"><h1>Bundelkhandi Bites</h1><p>Home Kitchen · Fresh Daily</p></div>
+  </div>
+  <div class="tabs">
+    <button class="tab on"  id="t-order"  onclick="go('order',this)">Order</button>
+    <button class="tab"     id="t-admin"  onclick="go('admin',this)">Admin</button>
+    <button class="tab"     id="t-orders" onclick="go('orders',this)">Orders <span id="badge"></span></button>
+  </div>
+</header>
+
+<!-- ADMIN SESSION BAR -->
+<div class="abar" id="abar">
+  <div class="abar-info">
+    Logged in as <strong id="abar-name"></strong>
+    <span class="rpill" id="abar-role"></span>
+  </div>
+  <button class="lout" onclick="logout()">Log out</button>
+</div>
+
+<!-- ══════════ ORDER VIEW ══════════ -->
+<div class="view on" id="v-order">
+
+  <div class="ok" id="ok-banner">✅ Order placed! We'll deliver on time. 🙏</div>
+
+  <div class="afbox" id="afbox">
+    <strong>Welcome back!</strong> <span id="af-msg"></span>
+    <div class="af-btns">
+      <button class="afyes" onclick="doAF()">Yes, autofill</button>
+      <button class="afno"  onclick="noAF()">No thanks</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="ch">Your details</div>
+    <span class="lbl">Full name</span>
+    <div class="acwrap">
+      <input class="inp" type="text" id="f-name" placeholder="e.g. Priya Sharma"
+        autocomplete="off" autocorrect="off" spellcheck="false"
+        oninput="acName(this.value)" onfocus="acFocus()" onblur="setTimeout(hideAC,220)"/>
+      <div id="acdrop" class="acdrop"></div>
+    </div>
+    <span class="lbl">Mobile number</span>
+    <input class="inp" type="tel" id="f-mobile" placeholder="10-digit number"
+      maxlength="10" inputmode="numeric" oninput="acMobile(this.value)"/>
+  </div>
+
+  <div class="card">
+    <div class="ch">Delivery address</div>
+    <span class="lbl">Society / Colony</span>
+    <input class="inp" type="text" id="f-soc" placeholder="e.g. Greenwood Residency" autocomplete="off"/>
+    <div class="r2">
+      <div><span class="lbl">Tower / Block</span><input class="inp" type="text" id="f-tower" placeholder="e.g. B" autocomplete="off"/></div>
+      <div><span class="lbl">Flat number</span> <input class="inp" type="text" id="f-flat"  placeholder="e.g. 402" autocomplete="off"/></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="ch">Delivery slot</div>
+    <div id="slotgrid" class="sgrid"></div>
+    <p id="noslot" style="font-size:13px;color:var(--inks);display:none">No delivery slots available right now.</p>
+  </div>
+
+  <div class="card">
+    <div class="ch">
+      <span>Your order</span>
+      <span id="nomenu" style="font-weight:400;font-size:11px;display:none;color:var(--inks)">Add menu items in Admin first</span>
+    </div>
+    <div id="orows"></div>
+    <button class="addrow" onclick="addRow()">＋ Add another item</button>
+    <div id="totalrow" class="totalrow" style="display:none">
+      <span class="totallbl">Estimated total</span>
+      <span class="totalamt" id="totalamt">₹0</span>
+    </div>
+  </div>
+
+  <div class="errbanner" id="place-err"></div>
+  <button class="placeBtn" onclick="placeOrder()">Place Order →</button>
+
+</div><!-- /v-order -->
+
+<!-- ══════════ ADMIN VIEW ══════════ -->
+<div class="view" id="v-admin">
+  <div class="blocked on" id="admin-blocked">
+    <div class="bi">🔒</div>
+    <h2>Admin access only</h2>
+    <p>This area is restricted to authorised admins of Bundelkhandi Bites.</p>
+  </div>
+  <div id="admin-content" style="display:none">
+
+    <div class="card">
+      <div class="ch">Today's menu</div>
+      <div style="display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap">
+        <input class="inp" type="text" id="ni-name" placeholder="Item name e.g. Dal Baati Churma" style="flex:2;min-width:160px"
+          onkeydown="if(event.key==='Enter')document.getElementById('ni-price').focus()"/>
+        <input class="inp" type="number" id="ni-price" placeholder="₹ Price" style="width:100px;flex:none"
+          onkeydown="if(event.key==='Enter')addItem()"/>
+        <button class="btnP" onclick="addItem()">Add</button>
+      </div>
+      <div style="overflow-x:auto;-webkit-overflow-scrolling:touch">
+        <table class="mtbl" id="mtbl" style="display:none">
+          <thead><tr><th>Item</th><th>Price (₹)</th><th></th></tr></thead>
+          <tbody id="mtbody"></tbody>
+        </table>
+        <p id="mempty" style="font-size:13px;color:var(--inks);padding:8px 0">No items added yet.</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="ch">Delivery slots</div>
+      <div id="sadmin"></div>
+      <button class="btnG" style="margin-top:14px;font-size:13px" onclick="addSlot()">＋ Add custom slot</button>
+    </div>
+
+    <div class="card" id="mgmt-card" style="display:none">
+      <div class="ch">Admin management <span style="font-weight:400;font-size:11px">super admin only</span></div>
+      <div class="adlist" id="adlist"></div>
+      <div style="border-top:1px solid var(--bd);padding-top:16px;margin-top:4px">
+        <p style="font-size:12px;font-weight:600;color:var(--inks);margin-bottom:12px;text-transform:uppercase;letter-spacing:.06em">Add new admin</p>
+        <div class="addform">
+          <div><span class="lbl" style="margin-top:0">Name</span>   <input class="inp" type="text" id="na-name" placeholder="Full name"/></div>
+          <div><span class="lbl" style="margin-top:0">Mobile</span> <input class="inp" type="tel"  id="na-mob"  placeholder="10-digit" maxlength="10" inputmode="numeric"/></div>
+          <div><span class="lbl" style="margin-top:0">PIN (4–6)</span><input class="inp" type="password" id="na-pin" placeholder="e.g. 1234" maxlength="6" style="letter-spacing:5px;text-align:center"/></div>
+          <div style="padding-top:22px"><button class="btnP" style="width:100%;height:46px" onclick="addAdmin()">Add</button></div>
+        </div>
+        <p id="add-err" style="font-size:13px;color:var(--red);margin-top:10px;display:none"></p>
+      </div>
+    </div>
+
+  </div>
+</div><!-- /v-admin -->
+
+<!-- ══════════ ORDERS VIEW ══════════ -->
+<div class="view" id="v-orders">
+  <div class="blocked on" id="orders-blocked">
+    <div class="bi">🔒</div>
+    <h2>Admin access only</h2>
+    <p>Please log in as admin to view orders.</p>
+  </div>
+  <div id="orders-content" style="display:none">
+    <div class="ostats">
+      <div class="ostat"><div class="n" id="s-total">0</div><div class="l">Total orders</div></div>
+      <div class="ostat"><div class="n" id="s-items">0</div><div class="l">Items ordered</div></div>
+      <div class="ostat"><div class="n" id="s-rev">₹0</div><div class="l">Revenue</div></div>
+    </div>
+    <div class="ebar">
+      <button class="btnGr" onclick="expCSV()">⬇ CSV</button>
+      <button class="btnGr" onclick="expXL()">⬇ Excel</button>
+      <button class="btnG"  onclick="clearOrders()">Clear all</button>
+    </div>
+    <div class="card" style="padding:0;overflow:hidden">
+      <div id="otbl-wrap" class="otbl-scroll"></div>
+    </div>
+  </div>
+</div><!-- /v-orders -->
+
+</div><!-- /wrap -->
+
+<!-- ══════════ PIN MODAL ══════════ -->
+<div class="poverlay" id="poverlay">
+  <div class="pmodal">
+    <div class="phead">
+      <div class="pico">🔐</div>
+      <h2>Admin Login</h2>
+      <p>Bundelkhandi Bites · Secure Access</p>
+    </div>
+    <div class="pbody">
+      <select class="asel" id="asel" onchange="selAdmin()">
+        <option value="">— Select your name —</option>
+      </select>
+      <div id="pin-wrap" style="display:none">
+        <p style="font-size:13px;color:var(--inks);text-align:center">Enter your PIN</p>
+        <div class="pdots">
+          <div class="pdot h" id="pd0"></div>
+          <div class="pdot h" id="pd1"></div>
+          <div class="pdot h" id="pd2"></div>
+          <div class="pdot h" id="pd3"></div>
+          <div class="pdot h" id="pd4"></div>
+          <div class="pdot h" id="pd5"></div>
+        </div>
+        <div class="atts" id="atts"></div>
+        <div class="numpad">
+          <button class="nb" onclick="kp('1')">1</button>
+          <button class="nb" onclick="kp('2')">2</button>
+          <button class="nb" onclick="kp('3')">3</button>
+          <button class="nb" onclick="kp('4')">4</button>
+          <button class="nb" onclick="kp('5')">5</button>
+          <button class="nb" onclick="kp('6')">6</button>
+          <button class="nb" onclick="kp('7')">7</button>
+          <button class="nb" onclick="kp('8')">8</button>
+          <button class="nb" onclick="kp('9')">9</button>
+          <button class="nb emp"></button>
+          <button class="nb" onclick="kp('0')">0</button>
+          <button class="nb del" onclick="kdel()">⌫</button>
+        </div>
+        <p class="perr" id="perr"></p>
+      </div>
+      <button class="cancelbtn" onclick="closePin()">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ── HASH ─────────────────────────────────────────────── */
+function H(s){let h=0;for(let i=0;i<s.length;i++){h=Math.imul(31,h)+s.charCodeAt(i)|0;}return String(h>>>0);}
+
+/* ── SUPER ADMIN ──────────────────────────────────────── */
+const SA={name:'Adarsh',mobile:'9479864570',role:'super'};
+const SA_PIN='147258';
+
+function getAdmins(){
+  let list=JSON.parse(localStorage.getItem('bb_admins')||'[]');
+  let sa=list.find(a=>a.mobile===SA.mobile);
+  if(!sa){list.unshift({...SA,ph:H(SA_PIN),pl:SA_PIN.length});}
+  else{if(!sa.ph){sa.ph=H(SA_PIN);sa.pl=SA_PIN.length;}sa.role='super';}
+  localStorage.setItem('bb_admins',JSON.stringify(list));
+  return list;
+}
+function saveAdmins(list){
+  if(!list.find(a=>a.mobile===SA.mobile))list.unshift({...SA,ph:H(SA_PIN),pl:SA_PIN.length});
+  localStorage.setItem('bb_admins',JSON.stringify(list));
+}
+
+/* ── SESSION ──────────────────────────────────────────── */
+let me=JSON.parse(sessionStorage.getItem('bb_me')||'null');
+function setMe(a){me=a;sessionStorage.setItem('bb_me',JSON.stringify(a));renderAbar();}
+function logout(){me=null;sessionStorage.removeItem('bb_me');renderAbar();go('order',document.getElementById('t-order'));}
+function renderAbar(){
+  const bar=document.getElementById('abar');
+  if(me){
+    bar.classList.add('on');
+    document.getElementById('abar-name').textContent=me.name;
+    const rp=document.getElementById('abar-role');
+    rp.textContent=me.role==='super'?'⭐ Super Admin':'Admin';
+    rp.className='rpill '+(me.role==='super'?'sup':'adm');
+  }else bar.classList.remove('on');
+}
+
+/* ── PIN MODAL ────────────────────────────────────────── */
+let pinBuf='',pinTarget='admin',pinTries=0;
+const MAXATT=5;
+
+function openPin(target){
+  pinTarget=target;pinBuf='';pinTries=0;
+  document.getElementById('perr').textContent='';
+  document.getElementById('pin-wrap').style.display='none';
+  const sel=document.getElementById('asel');
+  sel.innerHTML='<option value="">— Select your name —</option>'+
+    getAdmins().map(a=>`<option value="${a.mobile}">${a.name}${a.role==='super'?' ⭐':''}</option>`).join('');
+  sel.value='';
+  renderAtts();
+  document.getElementById('poverlay').classList.add('on');
+  // prevent body scroll on mobile
+  document.body.style.overflow='hidden';
+}
+function closePin(){
+  document.getElementById('poverlay').classList.remove('on');
+  document.body.style.overflow='';
+  pinBuf='';
+}
+document.getElementById('poverlay').addEventListener('click',function(e){if(e.target===this)closePin();});
+
+function selAdmin(){
+  pinBuf='';
+  document.getElementById('perr').textContent='';
+  updateDots();
+  document.getElementById('pin-wrap').style.display=document.getElementById('asel').value?'block':'none';
+}
+function getPL(){
+  const mob=document.getElementById('asel').value;
+  const a=getAdmins().find(x=>x.mobile===mob);
+  return a?(a.pl||4):4;
+}
+function kp(d){
+  if(pinBuf.length>=getPL())return;
+  pinBuf+=d;updateDots();
+  if(pinBuf.length===getPL())setTimeout(checkPin,120);
+}
+function kdel(){pinBuf=pinBuf.slice(0,-1);updateDots();document.getElementById('perr').textContent='';}
+function updateDots(){
+  const pl=getPL();
+  for(let i=0;i<6;i++){
+    const d=document.getElementById('pd'+i);
+    d.className='pdot';
+    if(i>=pl){d.classList.add('h');}
+    else if(i<pinBuf.length){d.classList.add('f');}
+  }
+}
+function renderAtts(){
+  document.getElementById('atts').innerHTML=
+    Array.from({length:MAXATT},(_,i)=>`<div class="att${i<pinTries?' u':''}"></div>`).join('');
+}
+function checkPin(){
+  const mob=document.getElementById('asel').value;
+  const admin=getAdmins().find(a=>a.mobile===mob);
+  if(!admin)return;
+  if(H(pinBuf)===admin.ph){
+    closePin();setMe(admin);
+    const btn=document.getElementById('t-'+pinTarget);
+    btn.classList.add('on');
+    showView(pinTarget);
+  }else{
+    pinTries++;renderAtts();
+    document.querySelectorAll('#pdots .pdot:not(.h)').forEach(d=>{d.classList.add('e','shk');});
+    setTimeout(()=>{document.querySelectorAll('.pdot').forEach(d=>d.className='pdot');pinBuf='';updateDots();},450);
+    if(pinTries>=MAXATT){
+      document.getElementById('perr').textContent='🔒 Too many attempts. Wait 30s.';
+      document.querySelectorAll('.nb').forEach(b=>b.disabled=true);
+      setTimeout(()=>{pinTries=0;renderAtts();document.querySelectorAll('.nb').forEach(b=>b.disabled=false);document.getElementById('perr').textContent='';},30000);
+    }else{
+      document.getElementById('perr').textContent='Wrong PIN. '+(MAXATT-pinTries)+' attempt'+(MAXATT-pinTries>1?'s':'')+' left.';
+    }
+  }
+}
+document.addEventListener('keydown',function(e){
+  if(!document.getElementById('poverlay').classList.contains('on'))return;
+  if(e.key>='0'&&e.key<='9')kp(e.key);
+  if(e.key==='Backspace')kdel();
+  if(e.key==='Escape')closePin();
+});
+
+/* ── VIEW SWITCHING ───────────────────────────────────── */
+function go(view,el){
+  if((view==='admin'||view==='orders')&&!me){openPin(view);return;}
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('on'));
+  document.querySelectorAll('.view').forEach(v=>v.classList.remove('on'));
+  if(el)el.classList.add('on');
+  showView(view);
+}
+function showView(view){
+  document.querySelectorAll('.view').forEach(v=>v.classList.remove('on'));
+  document.getElementById('v-'+view).classList.add('on');
+  if(view==='order'){buildSlots();buildRows();}
+  if(view==='admin'){
+    document.getElementById('admin-blocked').classList.remove('on');
+    document.getElementById('admin-content').style.display='block';
+    document.getElementById('mgmt-card').style.display=me&&me.role==='super'?'block':'none';
+    buildMenuTable();buildSlotsAdmin();buildAdminList();
+  }
+  if(view==='orders'){
+    document.getElementById('orders-blocked').classList.remove('on');
+    document.getElementById('orders-content').style.display='block';
+    buildOrdersTable();
+  }
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+/* ── DATA ─────────────────────────────────────────────── */
+let menu     =JSON.parse(localStorage.getItem('bb_menu')  ||'[]');
+let slots    =JSON.parse(localStorage.getItem('bb_slots') ||JSON.stringify([
+  {id:'lunch', name:'Lunch', emoji:'🌞',enabled:true,from:'12:00',to:'14:00'},
+  {id:'snacks',name:'Snacks',emoji:'☕',enabled:true,from:'17:00',to:'18:00'},
+  {id:'dinner',name:'Dinner',emoji:'🌙',enabled:true,from:'19:00',to:'21:00'}
+]));
+let orders   =JSON.parse(localStorage.getItem('bb_orders')||'[]');
+let customers=JSON.parse(localStorage.getItem('bb_custs') ||'[]');
+
+function saveAll(){
+  localStorage.setItem('bb_menu',   JSON.stringify(menu));
+  localStorage.setItem('bb_slots',  JSON.stringify(slots));
+  localStorage.setItem('bb_orders', JSON.stringify(orders));
+  localStorage.setItem('bb_custs',  JSON.stringify(customers));
+}
+function fmtT(t){
+  if(!t)return'';
+  const[h,m]=t.split(':');const hr=parseInt(h);
+  return(hr>12?hr-12:(hr===0?12:hr))+':'+m+'\u202f'+(hr>=12?'PM':'AM');
+}
+function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+
+/* ── MENU ─────────────────────────────────────────────── */
+function addItem(){
+  const n=document.getElementById('ni-name').value.trim();
+  const p=parseFloat(document.getElementById('ni-price').value)||0;
+  if(!n){alert('Please enter an item name.');return;}
+  menu.push({id:Date.now(),name:n,price:p});
+  saveAll();buildMenuTable();buildRows();
+  document.getElementById('ni-name').value='';
+  document.getElementById('ni-price').value='';
+  document.getElementById('ni-name').focus();
+}
+function delItem(id){menu=menu.filter(m=>m.id!==id);saveAll();buildMenuTable();buildRows();}
+function updItem(id,f,v){const m=menu.find(x=>x.id===id);if(m){m[f]=f==='price'?(parseFloat(v)||0):v;saveAll();}}
+function buildMenuTable(){
+  const tb=document.getElementById('mtbody');
+  const mt=document.getElementById('mtbl');
+  const em=document.getElementById('mempty');
+  if(!menu.length){mt.style.display='none';em.style.display='block';tb.innerHTML='';return;}
+  mt.style.display='table';em.style.display='none';
+  tb.innerHTML=menu.map(m=>`<tr>
+    <td><input class="ei" style="width:100%" value="${esc(m.name)}" onchange="updItem(${m.id},'name',this.value)"/></td>
+    <td><input class="ei pi" type="number" value="${m.price}" onchange="updItem(${m.id},'price',this.value)"/></td>
+    <td><button class="btnX" onclick="delItem(${m.id})">×</button></td>
+  </tr>`).join('');
+}
+
+/* ── SLOTS ADMIN ──────────────────────────────────────── */
+function buildSlotsAdmin(){
+  document.getElementById('sadmin').innerHTML=slots.map((s,i)=>`
+    <div class="sarow">
+      <label class="tgl"><input type="checkbox" ${s.enabled?'checked':''} onchange="togSlot(${i},this.checked)"/><span class="tslide"></span></label>
+      <div class="saname">${s.emoji} ${s.name}</div>
+      <div class="satimes">
+        <span>From</span>
+        <input class="ti" type="time" value="${s.from}" onchange="updSlot(${i},'from',this.value)" ${!s.enabled?'disabled':''}/>
+        <span>To</span>
+        <input class="ti" type="time" value="${s.to}"   onchange="updSlot(${i},'to',this.value)"   ${!s.enabled?'disabled':''}/>
+        <span>${fmtT(s.from)}–${fmtT(s.to)}</span>
+      </div>
+      <button class="btnX" onclick="delSlot(${i})">×</button>
+    </div>`).join('');
+}
+function togSlot(i,v){slots[i].enabled=v;saveAll();buildSlotsAdmin();buildSlots();}
+function updSlot(i,k,v){slots[i][k]=v;saveAll();buildSlotsAdmin();}
+function delSlot(i){slots.splice(i,1);saveAll();buildSlotsAdmin();buildSlots();}
+function addSlot(){
+  const n=prompt('Slot name (e.g. Evening):');if(!n)return;
+  slots.push({id:'s'+Date.now(),name:n,emoji:'🕐',enabled:true,from:'16:00',to:'17:00'});
+  saveAll();buildSlotsAdmin();buildSlots();
+}
+
+/* ── SLOTS ORDER FORM ─────────────────────────────────── */
+let pickedSlot='';
+function buildSlots(){
+  const el=document.getElementById('slotgrid');
+  const note=document.getElementById('noslot');
+  const active=slots.filter(s=>s.enabled);
+  if(!active.length){el.innerHTML='';note.style.display='block';pickedSlot='';return;}
+  note.style.display='none';
+  el.innerHTML=active.map(s=>`
+    <div class="sopt" data-name="${esc(s.name)}" onclick="pickSlot(this,'${s.name.replace(/'/g,"\\'")}')">
+      <span class="se">${s.emoji}</span>
+      <div class="sn">${s.name}</div>
+      <div class="st">${fmtT(s.from)}–${fmtT(s.to)}</div>
+    </div>`).join('');
+  if(pickedSlot){
+    const prev=el.querySelector(`.sopt[data-name="${pickedSlot}"]`);
+    if(prev)prev.classList.add('picked');else pickedSlot='';
+  }
+}
+function pickSlot(el,name){
+  document.querySelectorAll('.sopt').forEach(o=>o.classList.remove('picked'));
+  el.classList.add('picked');
+  pickedSlot=name;
+}
+
+/* ── ORDER ROWS ───────────────────────────────────────── */
+function buildRows(){
+  const wrap=document.getElementById('orows');
+  document.getElementById('nomenu').style.display=menu.length?'none':'inline';
+  if(!wrap.children.length&&menu.length)addRow();
+  recalc();
+}
+function mopts(){
+  return menu.map(m=>`<option value="${m.id}">${esc(m.name)} — ₹${m.price}</option>`).join('');
+}
+function addRow(){
+  if(!menu.length){return;}
+  const wrap=document.getElementById('orows');
+  const div=document.createElement('div');
+  div.className='orow';
+  const sel=document.createElement('select');
+  sel.className='inp';
+  sel.innerHTML=mopts();
+  sel.addEventListener('change',recalc);
+  const qty=document.createElement('input');
+  qty.className='inp';
+  qty.type='number';qty.min='1';qty.max='99';qty.value='1';
+  qty.setAttribute('inputmode','numeric');
+  qty.style.textAlign='center';
+  qty.addEventListener('input',recalc);
+  const del=document.createElement('button');
+  del.className='btnX';del.textContent='×';del.type='button';
+  del.addEventListener('click',function(){div.remove();recalc();});
+  div.appendChild(sel);div.appendChild(qty);div.appendChild(del);
+  wrap.appendChild(div);
+  recalc();
+}
+function recalc(){
+  const rows=document.querySelectorAll('.orow');
+  let t=0;
+  rows.forEach(r=>{
+    const sel=r.querySelector('select');
+    const qty=r.querySelector('input[type=number]');
+    if(!sel||!qty)return;
+    const item=menu.find(m=>String(m.id)===String(sel.value));
+    if(item)t+=item.price*(parseInt(qty.value)||1);
+  });
+  document.getElementById('totalamt').textContent='₹'+Math.round(t);
+  document.getElementById('totalrow').style.display=rows.length?'flex':'none';
+}
+
+/* ── AUTOFILL ─────────────────────────────────────────── */
+let pendingCust=null;
+function acName(v){
+  const drop=document.getElementById('acdrop');
+  if(v.length<2){drop.style.display='none';return;}
+  const hits=customers.filter(c=>
+    c.name.toLowerCase().includes(v.toLowerCase())||
+    (c.mobile&&c.mobile.startsWith(v))
+  );
+  if(!hits.length){drop.style.display='none';return;}
+  drop.innerHTML=hits.map(c=>`
+    <div class="acitem" onmousedown="fillCust('${c.mobile}')">
+      <strong>${esc(c.name)}</strong> · ${c.mobile||'—'}
+      <div class="acmeta">${esc(c.soc||'')}${c.tower?' T-'+c.tower:''}${c.flat?' #'+c.flat:''}</div>
+    </div>`).join('');
+  drop.style.display='block';
+}
+function acFocus(){acName(document.getElementById('f-name').value);}
+function hideAC(){document.getElementById('acdrop').style.display='none';}
+function acMobile(v){
+  if(v.length<5)return;
+  const c=customers.find(x=>x.mobile===v);
+  if(c){
+    pendingCust=c;
+    document.getElementById('af-msg').textContent=`We found details for ${c.name}. Fill them in?`;
+    document.getElementById('afbox').style.display='block';
+  }
+}
+function fillCust(mob){
+  const c=customers.find(x=>x.mobile===mob);
+  if(c)applyCust(c);
+  hideAC();
+}
+function doAF(){if(pendingCust)applyCust(pendingCust);noAF();}
+function noAF(){document.getElementById('afbox').style.display='none';pendingCust=null;}
+function applyCust(c){
+  document.getElementById('f-name').value  =c.name ||'';
+  document.getElementById('f-mobile').value=c.mobile||'';
+  document.getElementById('f-soc').value   =c.soc  ||'';
+  document.getElementById('f-tower').value =c.tower||'';
+  document.getElementById('f-flat').value  =c.flat ||'';
+}
+function saveCust(name,mobile,soc,tower,flat){
+  const ex=customers.find(c=>c.mobile===mobile);
+  if(ex)Object.assign(ex,{name,soc,tower,flat,ts:Date.now()});
+  else customers.push({name,mobile,soc,tower,flat,ts:Date.now()});
+  saveAll();
+}
+
+/* ── PLACE ORDER ──────────────────────────────────────── */
+function showErr(msg){
+  const e=document.getElementById('place-err');
+  e.innerHTML='⚠️ '+msg;e.style.display='block';
+  setTimeout(()=>e.scrollIntoView({behavior:'smooth',block:'nearest'}),50);
+}
+function clearErr(){document.getElementById('place-err').style.display='none';}
+
+function placeOrder(){
+  clearErr();
+  const name  =(document.getElementById('f-name').value  ||'').trim();
+  const mobile=(document.getElementById('f-mobile').value||'').trim();
+  const soc   =(document.getElementById('f-soc').value   ||'').trim();
+  const tower =(document.getElementById('f-tower').value ||'').trim();
+  const flat  =(document.getElementById('f-flat').value  ||'').trim();
+
+  if(!name)                   {showErr('Please enter your name.');return;}
+  if(!/^\d{10}$/.test(mobile)){showErr('Please enter a valid 10-digit mobile number.');return;}
+  if(!soc)                    {showErr('Please enter your Society / Colony.');return;}
+  if(!flat)                   {showErr('Please enter your Flat number.');return;}
+  if(!pickedSlot)             {showErr('Please select a delivery slot.');return;}
+
+  const rows=[...document.querySelectorAll('.orow')];
+  if(!rows.length){showErr('Please add at least one item.');return;}
+
+  const items=[];let total=0;
+  rows.forEach(r=>{
+    const sel=r.querySelector('select');
+    const qi =r.querySelector('input[type=number]');
+    if(!sel||!qi)return;
+    const item=menu.find(m=>String(m.id)===String(sel.value));
+    const qty=parseInt(qi.value)||1;
+    if(item){items.push({name:item.name,qty,price:item.price});total+=item.price*qty;}
+  });
+  if(!items.length){showErr('Could not read order items. Please refresh and try again.');return;}
+
+  const order={
+    id:orders.length+1,name,mobile,soc,tower,flat,
+    addr:`${soc}${tower?', T-'+tower:''}, Flat ${flat}`,
+    slot:pickedSlot,items,total:Math.round(total),
+    date:new Date().toLocaleDateString('en-IN'),
+    time:new Date().toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit'})
+  };
+  orders.push(order);
+  saveCust(name,mobile,soc,tower,flat);
+  saveAll();
+
+  // reset form
+  ['f-name','f-mobile','f-soc','f-tower','f-flat'].forEach(id=>document.getElementById(id).value='');
+  document.querySelectorAll('.sopt').forEach(o=>o.classList.remove('picked'));
+  pickedSlot='';
+  document.getElementById('orows').innerHTML='';
+  recalc();noAF();updateBadge();clearErr();
+
+  const ok=document.getElementById('ok-banner');
+  ok.style.display='block';
+  window.scrollTo({top:0,behavior:'smooth'});
+  setTimeout(()=>ok.style.display='none',6000);
+}
+
+/* ── ORDERS TABLE ─────────────────────────────────────── */
+function buildOrdersTable(){
+  updateStats();
+  const wrap=document.getElementById('otbl-wrap');
+  if(!orders.length){wrap.innerHTML='<div class="empty">📋 No orders yet</div>';return;}
+  const slotClass=s=>s==='Lunch'?'bl':s==='Snacks'?'bs':'bd';
+  wrap.innerHTML=`<table class="otbl">
+    <thead><tr><th>#</th><th>Name</th><th>Mobile</th><th>Address</th><th>Slot</th><th>Items</th><th>Total</th><th>Time</th></tr></thead>
+    <tbody>${orders.map(o=>`<tr>
+      <td style="font-weight:600;color:var(--s)">${o.id}</td>
+      <td>${esc(o.name)}</td>
+      <td>${o.mobile}</td>
+      <td style="font-size:12px">${esc(o.addr||o.address||'')}</td>
+      <td><span class="bdg ${slotClass(o.slot)}">${o.slot}</span></td>
+      <td style="font-size:12px">${o.items.map(i=>`${esc(i.name)} ×${i.qty}`).join('<br>')}</td>
+      <td style="font-weight:600">₹${o.total}</td>
+      <td style="font-size:12px;white-space:nowrap">${o.date}<br>${o.time}</td>
+    </tr>`).join('')}</tbody>
+  </table>`;
+}
+function updateStats(){
+  document.getElementById('s-total').textContent=orders.length;
+  document.getElementById('s-items').textContent=orders.reduce((s,o)=>s+o.items.reduce((a,i)=>a+i.qty,0),0);
+  document.getElementById('s-rev').textContent='₹'+orders.reduce((s,o)=>s+(o.total||0),0);
+}
+function updateBadge(){const b=document.getElementById('badge');b.textContent=orders.length?` (${orders.length})`:''}
+function clearOrders(){if(!confirm('Clear all orders? This cannot be undone.'))return;orders=[];saveAll();buildOrdersTable();updateBadge();}
+
+/* ── ADMIN MANAGEMENT ─────────────────────────────────── */
+function buildAdminList(){
+  document.getElementById('adlist').innerHTML=getAdmins().map(a=>`
+    <div class="adcard">
+      <div class="adleft">
+        <div class="adav">${a.name.charAt(0).toUpperCase()}</div>
+        <div>
+          <div class="adname">${esc(a.name)} <span class="rpill ${a.role==='super'?'sup':'adm'}">${a.role==='super'?'⭐ Super':'Admin'}</span></div>
+          <div class="admeta">${a.mobile}</div>
+        </div>
+      </div>
+      <div class="adactions">
+        <button class="pcbtn" onclick="togPCF('${a.mobile}')">Change PIN</button>
+        ${a.mobile!==SA.mobile?`<button class="btnX" onclick="delAdmin('${a.mobile}')">×</button>`:'<span style="font-size:11px;color:var(--inks)">You</span>'}
+      </div>
+    </div>
+    <div class="pcform" id="pcf-${a.mobile}">
+      <p style="font-size:13px;color:var(--inkm)">New PIN for <strong>${esc(a.name)}</strong></p>
+      <div class="pcrow">
+        <input class="inp pinfield" type="password" id="pci-${a.mobile}" placeholder="New PIN" maxlength="6" inputmode="numeric"/>
+        <button class="btnP" style="height:46px;font-size:13px" onclick="savePC('${a.mobile}')">Save</button>
+        <button class="btnG" style="height:46px" onclick="togPCF('${a.mobile}')">Cancel</button>
+      </div>
+      <p style="font-size:11px;color:var(--inks);margin-top:8px">4–6 digits only. Share with admin privately.</p>
+      <p style="color:var(--red);font-size:12px;margin-top:4px" id="pce-${a.mobile}"></p>
+    </div>`).join('');
+}
+function togPCF(mob){
+  const f=document.getElementById('pcf-'+mob);
+  f.classList.toggle('on');
+  if(f.classList.contains('on'))document.getElementById('pci-'+mob).focus();
+}
+function savePC(mob){
+  const v=(document.getElementById('pci-'+mob).value||'').trim();
+  const e=document.getElementById('pce-'+mob);
+  if(!/^\d{4,6}$/.test(v)){e.textContent='PIN must be 4–6 digits.';return;}
+  const list=getAdmins();
+  const a=list.find(x=>x.mobile===mob);
+  if(a){a.ph=H(v);a.pl=v.length;}
+  saveAdmins(list);
+  if(me&&me.mobile===mob){me.ph=a.ph;me.pl=a.pl;setMe(me);}
+  document.getElementById('pci-'+mob).value='';
+  e.textContent='';
+  togPCF(mob);buildAdminList();
+}
+function addAdmin(){
+  const n=(document.getElementById('na-name').value||'').trim();
+  const m=(document.getElementById('na-mob').value ||'').trim();
+  const p=(document.getElementById('na-pin').value ||'').trim();
+  const e=document.getElementById('add-err');e.style.display='none';
+  if(!n)                    {e.textContent='Enter a name.';e.style.display='block';return;}
+  if(!/^\d{10}$/.test(m))   {e.textContent='Enter a valid 10-digit mobile.';e.style.display='block';return;}
+  if(!/^\d{4,6}$/.test(p))  {e.textContent='PIN must be 4–6 digits.';e.style.display='block';return;}
+  const list=getAdmins();
+  if(list.find(a=>a.mobile===m)){e.textContent='Number already registered.';e.style.display='block';return;}
+  list.push({name:n,mobile:m,role:'admin',ph:H(p),pl:p.length});
+  saveAdmins(list);
+  ['na-name','na-mob','na-pin'].forEach(id=>document.getElementById(id).value='');
+  buildAdminList();
+}
+function delAdmin(mob){
+  if(mob===SA.mobile)return;
+  if(!confirm('Remove this admin?'))return;
+  saveAdmins(getAdmins().filter(a=>a.mobile!==mob));
+  buildAdminList();
+}
+
+/* ── EXPORTS ──────────────────────────────────────────── */
+function expCSV(){
+  if(!orders.length){alert('No orders yet.');return;}
+  const h=['#','Name','Mobile','Society','Tower','Flat','Slot','Items','Total (₹)','Date','Time'];
+  const rows=orders.map(o=>[o.id,o.name,o.mobile,o.soc||'',o.tower||'',o.flat||'',o.slot,
+    o.items.map(i=>`${i.name} x${i.qty}`).join('|'),o.total,o.date,o.time]);
+  const csv=[h,...rows].map(r=>r.map(c=>`"${String(c).replace(/"/g,'""')}"`).join(',')).join('\n');
+  dl(new Blob(['\uFEFF'+csv],{type:'text/csv;charset=utf-8;'}),'bb_orders.csv');
+}
+function expXL(){
+  if(!orders.length){alert('No orders yet.');return;}
+  if(typeof XLSX==='undefined'){alert('Excel library loading... please try again in a moment.');return;}
+  const d=[['Bundelkhandi Bites — Orders'],['Generated',new Date().toLocaleString('en-IN')],[],
+    ['#','Name','Mobile','Society','Tower','Flat','Slot','Items','Total (₹)','Date','Time']];
+  orders.forEach(o=>d.push([o.id,o.name,o.mobile,o.soc||'',o.tower||'',o.flat||'',o.slot,
+    o.items.map(i=>`${i.name} x${i.qty}`).join(' | '),o.total,o.date,o.time]));
+  const wb=XLSX.utils.book_new();
+  const ws=XLSX.utils.aoa_to_sheet(d);
+  ws['!cols']=[4,15,12,18,8,8,10,30,10,11,8].map(w=>({wch:w}));
+  XLSX.utils.book_append_sheet(wb,ws,'Orders');
+  const sc={};orders.forEach(o=>sc[o.slot]=(sc[o.slot]||0)+1);
+  const ws2=XLSX.utils.aoa_to_sheet([['Summary'],
+    ['Total orders',orders.length],
+    ['Total revenue (₹)',orders.reduce((s,o)=>s+(o.total||0),0)],
+    ['Total items',orders.reduce((s,o)=>s+o.items.reduce((a,i)=>a+i.qty,0),0)],
+    [],['Slot','Orders'],...Object.entries(sc)]);
+  XLSX.utils.book_append_sheet(wb,ws2,'Summary');
+  XLSX.writeFile(wb,'bb_orders.xlsx');
+}
+function dl(b,n){const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download=n;a.click();}
+
+/* ── INIT ─────────────────────────────────────────────── */
+getAdmins();
+renderAbar();
+buildSlots();
+buildRows();
+updateBadge();
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+</body>
+</html>
